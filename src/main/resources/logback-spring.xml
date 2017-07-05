@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProfile name="development">
+
+		<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+		<property name="LOG_HOME" value="${user.home}/ApplicationLogs/" />
+
+		<appender name="AUDIT_LOG_FILE" class="ch.qos.logback.core.FileAppender">
+			<file>${LOG_HOME}/portfolio-management-service.log</file>
+			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+				<Pattern>
+					%-5level %logger{36} - %msg%n
+				</Pattern>
+			</encoder>
+		</appender>
+
+		<logger name="de.cosmicit.pms" level="DEBUG">
+			<appender-ref ref="AUDIT_LOG_FILE" />
+		</logger>
+
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+
+
+	</springProfile>
+
+
+	<springProfile name="testing">
+
+		<property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
+
+		<!-- 		<include resource="org/springframework/boot/logging/logback/file-appender.xml" /> -->
+
+		<appender name="FILE_COMPRESSED" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<encoder>
+				<pattern>${FILE_LOG_PATTERN}</pattern>
+			</encoder>
+			<file>${LOG_FILE}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+				<fileNamePattern>${LOG_FILE}.%i.gz</fileNamePattern>
+			</rollingPolicy>
+			<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+				<MaxFileSize>5MB</MaxFileSize>
+			</triggeringPolicy>
+		</appender>
+
+		<logger name="de.cosmicit.pms" level="DEBUG">
+			<appender-ref ref="FILE_COMPRESSED" />
+		</logger>
+
+		<root level="DEBUG">
+			<appender-ref ref="FILE_COMPRESSED" />
+		</root>
+
+	</springProfile>
+
+</configuration>
