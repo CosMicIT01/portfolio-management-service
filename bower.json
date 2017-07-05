@@ -1,0 +1,7 @@
+{
+    "name": "porfolio-management-service",
+    "description": "REST service for portfolio management",
+    "dependencies": {
+        "swagger-ui": "^2.2.8"
+    }
+}

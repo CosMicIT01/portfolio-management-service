@@ -1,18 +1,30 @@
 package de.cosmicit.pms.config;
 
-import java.util.Arrays;
-
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.DispatcherServlet;
+
+import java.util.Arrays;
 
 @Configuration
-public class AppConfig {
+public class ApplicationConfig {
 
-	
+	/**
+     * Set throw exception if no handler found as true
+     *
+     * @return      new instance of DispatcherServlet
+     */
+    @Bean
+    public DispatcherServlet dispatcherServlet() {
+        DispatcherServlet ds = new DispatcherServlet();
+        ds.setThrowExceptionIfNoHandlerFound(true);
+        return ds;
+    }
+
     /**
      * Set cors configuration for rest endpoints
      *
@@ -31,5 +43,4 @@ public class AppConfig {
         bean.setOrder(0);
         return bean;
     }
-    
 }
