@@ -54,6 +54,14 @@ public class UserController extends AbstractRestController<User> {
     }
 
     @Override
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
+    public User update(@PathVariable("id") Long id, @RequestBody String jsonData)
+            throws ResourceNotFoundException, InvalidParameterException, IOException {
+        return super.update(id, jsonData);
+    }
+
+    @Override
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) throws ResourceNotFoundException {

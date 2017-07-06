@@ -13,11 +13,11 @@ schemes:
   - https
 tags:
   - name: Public API
-    description: API with Client Token
+    description: API which can be accessed publicly
   - name: User API
-    description: API with User Token
+    description: API with User Token in Future
   - name: Admin API
-    description: API with Admin Token
+    description: API with for admin user
   - name: user
     description: Data access on `User`
 produces:

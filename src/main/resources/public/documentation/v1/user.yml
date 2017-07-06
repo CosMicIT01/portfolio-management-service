@@ -50,43 +50,52 @@ userId:
         $ref: 'definitions.yml#/responses/400'
       404:
         $ref: 'definitions.yml#/responses/404'
-#  put:
-#    tags:
-#      - User API
-#    summary: Update single user
-#    description: Update single user
-#    security:
-#      - Bearer: []
-#    parameters:
-#      - $ref: '#/definitions/parameters/requestUpdateBody'
-#    responses:
-#      202:
-#        description: Updated user object
-#        schema:
-#          $ref: '#/definitions/models/user'
-#      400:
-#        $ref: 'definitions.yml#/responses/400'
-#      404:
-#        $ref: 'definitions.yml#/responses/404'
-#  patch:
-#    tags:
-#      - User API
-#    summary: Partial update single user
-#    description: Partial Update single user
-#    security:
-#      - Bearer: []
-#    parameters:
-#      - $ref: '#/definitions/parameters/id'
-#      - $ref: '#/definitions/parameters/requestUpdateBody'
-#    responses:
-#      202:
-#        description: Updated user object
-#        schema:
-#          $ref: '#/definitions/models/user'
-#      400:
-#        $ref: 'definitions.yml#/responses/400'
-#      404:
-#        $ref: 'definitions.yml#/responses/404'
+  put:
+    tags:
+      - User API
+    summary: Update single user
+    description: Update single user
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated user object
+        schema:
+          $ref: '#/definitions/models/user'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  patch:
+    tags:
+      - User API
+    summary: Partial update single user
+    description: Partial Update single user
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated user object
+        schema:
+          $ref: '#/definitions/models/user'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  delete:
+    tags:
+      - Admin API
+    summary: Delete User
+    description: Delete user object
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      204:
+        $ref: 'definitions.yml#/responses/204'
+      404:
+        $ref: 'definitions.yml#/responses/404'
 
 #########################
 #      local objects    #
@@ -132,14 +141,14 @@ definitions:
       type: object
       required:
         - id
-        - username
-        - firstname
-        - lastname
+        - userName
+        - firstName
+        - lastName
         - email
-        - birthday
+        - birthDate
         - gender
         - street
-        - housenumber
+        - houseNumber
         - zipcode
         - city
         - country
@@ -147,18 +156,15 @@ definitions:
         id:
           type: integer
           format: int64
-        identity:
+        userName:
           type: string
-          description: Default `null`
-        username:
+        firstName:
           type: string
-        firstname:
-          type: string
-        lastname:
+        lastName:
           type: string
         email:
           type: string
-        birthday:
+        birthDate:
           type: string
         gender:
           type: string
@@ -167,7 +173,7 @@ definitions:
             - female
         street:
           type: string
-        housenumber:
+        houseNumber:
           type: string
         zipcode:
           type: string
@@ -177,27 +183,29 @@ definitions:
           type: string
       example:
         id: 1
-        username: testuser
-        firstname: Max
-        lastname: Musterman
-        email: max.mustermann@vitapublic.de
-        birthday: "2000-1-1"
+        userName: testuser
+        firstName: Max
+        lastName: Musterman
+        email: max.mustermann@cosmicit.de
+        birthDate: "2000-1-1"
         gender: male
         street: "Müncherstr."
-        housenumber: "1"
+        houseNumber: "1"
         zipcode: "80686"
         city: "München"
         country: "DE"
     userCreateRequest:
       type: object
       properties:
-        firstname:
+        firstName:
           type: string
-        lastname:
+        lastName:
+          type: string
+        userName:
           type: string
         email:
           type: string
-        birthday:
+        birthDate:
           type: string
         gender:
           type: string
@@ -206,7 +214,7 @@ definitions:
             - female
         street:
           type: string
-        housenumber:
+        houseNumber:
           type: string
         zipcode:
           type: string
@@ -215,26 +223,27 @@ definitions:
         country:
           type: string
       example:
-        firstname: Max
-        lastname: Musterman
-        email: max.mustermann@vitapublic.de
-        birthday: "2000-1-1"
+        firstName: Max
+        lastName: Musterman
+        userName: MaxMusterman
+        email: max.mustermann@cosmicit.de
+        birthDate: "2000-1-1"
         gender: male
         street: "Müncherstr."
-        housenumber: "1"
+        houseNumber: "1"
         zipcode: "80686"
         city: "München"
         country: "DE"
     userUpdateRequest:
       type: object
       properties:
-        firstname:
+        firstName:
           type: string
-        lastname:
+        lastName:
           type: string
         email:
           type: string
-        birthday:
+        birthDate:
           type: string
         gender:
           type: string
@@ -243,7 +252,7 @@ definitions:
             - female
         street:
           type: string
-        housenumber:
+        houseNumber:
           type: string
         zipcode:
           type: string
@@ -252,13 +261,14 @@ definitions:
         country:
           type: string
       example:
-        firstname: Max
-        lastname: Musterman
-        email: max.mustermann@vitapublic.de
-        birthday: "2000-1-1"
+        firstName: Max
+        lastName: Musterman
+        userName: MaxMusterman
+        email: max.mustermann@cosmicit.de
+        birthDate: "2000-1-1"
         gender: male
         street: "Müncherstr."
-        housenumber: "1"
+        houseNumber: "1"
         zipcode: "80686"
         city: "München"
         country: "DE"
