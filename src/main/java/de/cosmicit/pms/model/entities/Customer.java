@@ -9,8 +9,8 @@ import java.util.Date;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "tbl_user")
-public class User {
+@Table(name = "tbl_customer")
+public class Customer {
 
 	public enum Gender {
 		FEMALE,
@@ -20,48 +20,48 @@ public class User {
 	}
 
 	@Id @GeneratedValue(strategy = IDENTITY)
-	@Column(name = "user_id", unique = true, nullable = false)
+	@Column(name = "customer_id", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "user_username")
+	@Column(name = "customer_username")
 	private String userName;
 
-	@Column(name = "user_firstname")
+	@Column(name = "customer_firstname")
 	private String firstName;
 
-	@Column(name = "user_lastname")
+	@Column(name = "customer_lastname")
 	private String lastName;
 
-	@Column(name = "user_email")
+	@Column(name = "customer_email")
 	private String email;
 
-	@Column(name = "user_birthdate")
+	@Column(name = "customer_birthdate")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 
-	@Column(name = "user_gender")
+	@Column(name = "customer_gender")
 	private Gender gender;
 
-	@Column(name = "user_street")
+	@Column(name = "customer_street")
 	private String street;
 
-	@Column(name = "user_housenumber")
+	@Column(name = "customer_housenumber")
 	private String houseNumber;
 
-	@Column(name = "user_zipcode")
+	@Column(name = "customer_zipcode")
 	private String zipcode;
 
-	@Column(name = "user_city")
+	@Column(name = "customer_city")
 	private String city;
 
-	@Column(name = "user_country")
+	@Column(name = "customer_country")
 	private String country;
 
 	// TODO to discuss about database schema and decide foreign key relationships
 //	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-//	@JoinTable(name = "tbl_userlinkservicecontract", joinColumns = {
-//			@JoinColumn(name = "userlinkservicecontract_linkuserid", nullable = false, updatable = false) }, inverseJoinColumns = {
-//					@JoinColumn(name = "userlinkservicecontract_linkservicecontractid", nullable = false, updatable = false) })
+//	@JoinTable(name = "tbl_customerlinkservicecontract", joinColumns = {
+//			@JoinColumn(name = "customerlinkservicecontract_linkcustomerid", nullable = false, updatable = false) }, inverseJoinColumns = {
+//					@JoinColumn(name = "customerlinkservicecontract_linkservicecontractid", nullable = false, updatable = false) })
 //	@JsonSerialize(using = CollectionSerializer.class)
 //	@JsonDeserialize(using = CollectionDeserializer.class)
 //	private Set<Servicecontract> serviceContracts = new HashSet<>();

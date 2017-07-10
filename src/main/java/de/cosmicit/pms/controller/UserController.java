@@ -2,8 +2,8 @@ package de.cosmicit.pms.controller;
 
 import de.cosmicit.pms.controller.exception.InvalidParameterException;
 import de.cosmicit.pms.controller.exception.ResourceNotFoundException;
-import de.cosmicit.pms.model.entities.User;
-import de.cosmicit.pms.model.repository.UserRepository;
+import de.cosmicit.pms.model.entities.Customer;
+import de.cosmicit.pms.model.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,42 +13,42 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/user")
-public class UserController extends AbstractRestController<User> {
+public class UserController extends AbstractRestController<Customer> {
 
     @Autowired
-    UserRepository userRepository;
+    CustomerRepository userRepository;
 
     @Override
-    public Class<User> getEntityClass() {
-        return User.class;
+    public Class<Customer> getEntityClass() {
+        return Customer.class;
     }
 
     @Override
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public User get(@PathVariable("id") Long id) throws ResourceNotFoundException {
+    public Customer get(@PathVariable("id") Long id) throws ResourceNotFoundException {
         return super.get(id);
     }
 
     @Override
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<User> getList() {
-        List<User> users = super.getList();
+    public List<Customer> getList() {
+        List<Customer> users = super.getList();
         return users;
     }
 
     @Override
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public User create(@RequestBody User entity) throws InvalidParameterException {
+    public Customer create(@RequestBody Customer entity) throws InvalidParameterException {
         return super.create(entity);
     }
 
     @Override
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public User replace(@PathVariable("id") Long id, @RequestBody String jsonData)
+    public Customer replace(@PathVariable("id") Long id, @RequestBody String jsonData)
             throws ResourceNotFoundException, InvalidParameterException, IOException {
         return super.replace(id, jsonData);
     }
@@ -56,7 +56,7 @@ public class UserController extends AbstractRestController<User> {
     @Override
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
-    public User update(@PathVariable("id") Long id, @RequestBody String jsonData)
+    public Customer update(@PathVariable("id") Long id, @RequestBody String jsonData)
             throws ResourceNotFoundException, InvalidParameterException, IOException {
         return super.update(id, jsonData);
     }

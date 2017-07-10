@@ -1,51 +1,51 @@
 ---
-user:
+customer:
   get:
     tags:
       - Admin API
-    summary: Get array of user
+    summary: Get array of customer
     description: |
-      The GET user as list.
+      The GET customer as list.
     responses:
       200:
-        description: An array of user
+        description: An array of customer
         schema:
           type: array
           items:
-            $ref: '#/definitions/models/user'
+            $ref: '#/definitions/models/customer'
       400:
         $ref: 'definitions.yml#/responses/400'
   post:
     tags:
       - Admin API
-    summary: Create a User
+    summary: Create a Customer
     description: |
-      Create User
+      Create Customer
     parameters:
       - $ref: '#/definitions/parameters/requestCreateBody'
     responses:
       201:
-        description: new instance of user
+        description: new instance of customer
         schema:
-          $ref: '#/definitions/models/user'
+          $ref: '#/definitions/models/customer'
       400:
         $ref: 'definitions.yml#/responses/400'
       401:
         $ref: 'definitions.yml#/responses/401'
-userId:
+customerId:
   get:
     tags:
       - Public API
       - User API
-    summary: Get single user
-    description: Get single user object with identity.
+    summary: Get single customer
+    description: Get single customer object with identity.
     parameters:
       - $ref: '#/definitions/parameters/id'
     responses:
       200:
         description: '`Organizer` object in JSON'
         schema:
-          $ref: '#/definitions/models/user'
+          $ref: '#/definitions/models/customer'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -53,16 +53,16 @@ userId:
   put:
     tags:
       - User API
-    summary: Update single user
-    description: Update single user
+    summary: Update single customer
+    description: Update single customer
     parameters:
       - $ref: '#/definitions/parameters/id'
       - $ref: '#/definitions/parameters/requestUpdateBody'
     responses:
       202:
-        description: Updated user object
+        description: Updated customer object
         schema:
-          $ref: '#/definitions/models/user'
+          $ref: '#/definitions/models/customer'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -70,16 +70,16 @@ userId:
   patch:
     tags:
       - User API
-    summary: Partial update single user
-    description: Partial Update single user
+    summary: Partial update single customer
+    description: Partial Update single customer
     parameters:
       - $ref: '#/definitions/parameters/id'
       - $ref: '#/definitions/parameters/requestUpdateBody'
     responses:
       202:
-        description: Updated user object
+        description: Updated customer object
         schema:
-          $ref: '#/definitions/models/user'
+          $ref: '#/definitions/models/customer'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -87,8 +87,8 @@ userId:
   delete:
     tags:
       - Admin API
-    summary: Delete User
-    description: Delete user object
+    summary: Delete Customer
+    description: Delete customer object
     parameters:
       - $ref: '#/definitions/parameters/id'
     responses:
@@ -108,14 +108,14 @@ definitions:
     id:
       name: id
       in: path
-      description: identity of user object
+      description: identity of customer object
       required: true
       format: int64
       type: integer
-    userId:
-      name: userId
+    customerId:
+      name: customerId
       in: path
-      description: identity of user object
+      description: identity of customer object
       required: true
       format: int64
       type: integer
@@ -125,19 +125,19 @@ definitions:
       description: raw request body json for post
       required: true
       schema:
-        $ref: '#/definitions/models/userCreateRequest'
+        $ref: '#/definitions/models/customerCreateRequest'
     requestUpdateBody:
       name: body
       in: body
       description: raw request body json for post
       required: true
       schema:
-        $ref: '#/definitions/models/userUpdateRequest'
+        $ref: '#/definitions/models/customerUpdateRequest'
 #################
 #     models    #
 #################
   models:
-    user:
+    customer:
       type: object
       required:
         - id
@@ -183,7 +183,7 @@ definitions:
           type: string
       example:
         id: 1
-        userName: testuser
+        userName: testcustomer
         firstName: Max
         lastName: Musterman
         email: max.mustermann@cosmicit.de
@@ -194,7 +194,7 @@ definitions:
         zipcode: "80686"
         city: "München"
         country: "DE"
-    userCreateRequest:
+    customerCreateRequest:
       type: object
       properties:
         firstName:
@@ -234,7 +234,7 @@ definitions:
         zipcode: "80686"
         city: "München"
         country: "DE"
-    userUpdateRequest:
+    customerUpdateRequest:
       type: object
       properties:
         firstName:

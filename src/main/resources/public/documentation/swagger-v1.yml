@@ -15,20 +15,20 @@ tags:
   - name: Public API
     description: API which can be accessed publicly
   - name: User API
-    description: API with User Token in Future
+    description: API with Customer Token in Future
   - name: Admin API
     description: API with for admin user
-  - name: user
-    description: Data access on `User`
+  - name: customer
+    description: Data access on `Customer`
 produces:
   - application/json
 consumers:
   - application/json
 paths:
   /user:
-    $ref: 'v1/user.yml#/user'
+    $ref: 'v1/customer.yml#/customer'
   /user/{id}:
-    $ref: 'v1/user.yml#/userId'
+    $ref: 'v1/customer.yml#/customerId'
   /agent:
     $ref: 'v1/agent.yml#/agent'
   /agent/{id}:

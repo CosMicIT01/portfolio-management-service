@@ -54,7 +54,7 @@ abstract public class AbstractRestController<T> {
         if (!id.equals(
                 entityManager.getEntityManagerFactory().getPersistenceUnitUtil()
                         .getIdentifier(mergedEntity))) {
-            throw new InvalidParameterException("Invalid User ID in request body");
+            throw new InvalidParameterException("Invalid Customer ID in request body");
         }
         entityManager.merge(mergedEntity);
         entityManager.flush();
