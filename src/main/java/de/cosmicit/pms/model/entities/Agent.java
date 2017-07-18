@@ -2,15 +2,20 @@ package de.cosmicit.pms.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.cosmicit.pms.model.deserializers.CollectionDeserializer;
+import de.cosmicit.pms.model.serializers.CollectionSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * This class represents the Agent Entity of the Application
- *
  */
 @Entity
 @Table(name = "tbl_agent")
@@ -19,9 +24,13 @@ public class Agent {
     public enum Gender {
         FEMALE,
         MALE;
+
         @JsonValue
-        public String value() { return this.name().toLowerCase(); }
+        public String value() {
+            return this.name().toLowerCase();
+        }
     }
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "agent_id", unique = true, nullable = false)
@@ -60,6 +69,11 @@ public class Agent {
 
     @Column(name = "agent_country")
     private String country;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "agent")
+    @JsonSerialize(using = CollectionSerializer.class)
+    @JsonDeserialize(using = CollectionDeserializer.class)
+    private Set<ServiceRequest> serviceRequests = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -155,5 +169,24 @@ public class Agent {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Set<ServiceRequest> getServiceRequests() {
+        return serviceRequests;
+    }
+
+    public void setServiceRequests(Set<ServiceRequest> serviceRequests) {
+        if (!this.serviceRequests.isEmpty()) {
+            this.serviceRequests.forEach((ServiceRequest serviceRequest) -> serviceRequest.setAgent(null));
+            this.serviceRequests.clear();
+        }
+        serviceRequests.forEach((ServiceRequest serviceRequest) -> serviceRequest.setAgent(this));
+        this.serviceRequests.addAll(serviceRequests);
+    }
+
+    public void addServiceRequest(ServiceRequest serviceRequest) {
+        if (!this.serviceRequests.contains(serviceRequest)) {
+            this.serviceRequests.add(serviceRequest);
+        }
     }
 }

@@ -2,9 +2,15 @@ package de.cosmicit.pms.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.cosmicit.pms.model.deserializers.CollectionDeserializer;
+import de.cosmicit.pms.model.serializers.CollectionSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -57,14 +63,10 @@ public class Customer {
 	@Column(name = "customer_country")
 	private String country;
 
-	// TODO to discuss about database schema and decide foreign key relationships
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-//	@JoinTable(name = "tbl_customerlinkservicecontract", joinColumns = {
-//			@JoinColumn(name = "customerlinkservicecontract_linkcustomerid", nullable = false, updatable = false) }, inverseJoinColumns = {
-//					@JoinColumn(name = "customerlinkservicecontract_linkservicecontractid", nullable = false, updatable = false) })
-//	@JsonSerialize(using = CollectionSerializer.class)
-//	@JsonDeserialize(using = CollectionDeserializer.class)
-//	private Set<Servicecontract> serviceContracts = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+	@JsonSerialize(using = CollectionSerializer.class)
+	@JsonDeserialize(using = CollectionDeserializer.class)
+	private Set<ServiceRequest> serviceRequests = new HashSet<>();
 
 	public Long getId() {
 		return this.id;
@@ -162,17 +164,22 @@ public class Customer {
 		this.country = country;
 	}
 
-//	public Set<Servicecontract> getServicecontracts() {
-//		return this.serviceContracts;
-//	}
-//
-//	public void setServiceContracts(Set<ServiceContract> serviceContracts) {
-//		this.serviceContracts.clear();
-//		this.serviceContracts.addAll(serviceContracts);
-//	}
-//
-//	public void addServiceContract(ServiceContract serviceContract) {
-//		this.serviceContracts.add(serviceContract);
-//	}
+	public Set<ServiceRequest> getServiceRequests() {
+		return serviceRequests;
+	}
 
+	public void setServiceRequests(Set<ServiceRequest> serviceRequests) {
+		if (!this.serviceRequests.isEmpty()) {
+			this.serviceRequests.forEach((ServiceRequest serviceRequest) -> serviceRequest.setCustomer(null));
+			this.serviceRequests.clear();
+		}
+		serviceRequests.forEach((ServiceRequest serviceRequest) -> serviceRequest.setCustomer(this));
+		this.serviceRequests.addAll(serviceRequests);
+	}
+
+	public void addServiceRequest(ServiceRequest serviceRequest) {
+		if (!this.serviceRequests.contains(serviceRequest)) {
+			this.serviceRequests.add(serviceRequest);
+		}
+	}
 }

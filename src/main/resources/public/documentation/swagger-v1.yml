@@ -32,7 +32,7 @@ paths:
   /agent:
     $ref: 'v1/agent.yml#/agent'
   /agent/{id}:
-    $ref: 'v1/agent.yml#/agentId'
+    $ref: 'v1/agent.yml#/agent'
 
 
 

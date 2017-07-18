@@ -32,7 +32,7 @@ agent:
         $ref: 'definitions.yml#/responses/400'
       401:
         $ref: 'definitions.yml#/responses/401'
-agentId:
+agent:
   get:
     tags:
       - Public API
@@ -112,8 +112,8 @@ definitions:
       required: true
       format: int64
       type: integer
-    agentId:
-      name: agentId
+    agent:
+      name: agent
       in: path
       description: identity of agent object
       required: true
