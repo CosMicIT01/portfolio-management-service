@@ -17,31 +17,42 @@ public class Subscription {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "document_id", unique = true, nullable = false)
+    @Column(name = "subscription_id", unique = true, nullable = false)
     private Long Id;
 
-    @Column(name = "document_name")
-    private String documentName;
-
-    @Column(name = "signed_by")
-    private String signedBy;
+    @Column(name = "subscription_name")
+    private String subscriptionName;
 
     @Column(name = "creation_date")
     private Date creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-    @JoinColumn(name = "document_link_document_type_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonDeserialize(using = ReferenceDeserializer.class)
-    private DocumentType documentType;
+    @Column(name = "expiry_date")
+    private Date expiryDate;
+
+    @Column(name = "renewal_date")
+    private Date renewalDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-    @JoinColumn(name = "document_link_service_request_id")
+    @JoinColumn(name = "subscription_link_subscription_type_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @JsonDeserialize(using = ReferenceDeserializer.class)
-    private ServiceRequest serviceRequest;
+    private SubscriptionType subscriptionType;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "subscription_link_service_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonDeserialize(using = ReferenceDeserializer.class)
+    private Service service;
+
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "subscription_link_customer_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonDeserialize(using = ReferenceDeserializer.class)
+    private Customer customer;
 
     public Long getId() {
         return Id;
@@ -51,20 +62,12 @@ public class Subscription {
         Id = id;
     }
 
-    public String getDocumentName() {
-        return documentName;
+    public String getSubscriptionName() {
+        return subscriptionName;
     }
 
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
-    }
-
-    public String getSignedBy() {
-        return signedBy;
-    }
-
-    public void setSignedBy(String signedBy) {
-        this.signedBy = signedBy;
+    public void setSubscriptionName(String subscriptionName) {
+        this.subscriptionName = subscriptionName;
     }
 
     public Date getCreationDate() {
@@ -75,19 +78,19 @@ public class Subscription {
         this.creationDate = creationDate;
     }
 
-    public DocumentType getDocumentType() {
-        return documentType;
+    public SubscriptionType getSubscriptionType() {
+        return subscriptionType;
     }
 
-    public void setDocumentType(DocumentType documentType) {
-        this.documentType = documentType;
+    public void setSubscriptionType(SubscriptionType subscriptionType) {
+        this.subscriptionType = subscriptionType;
     }
 
-    public ServiceRequest getServiceRequest() {
-        return serviceRequest;
+    public Service getService() {
+        return service;
     }
 
-    public void setServiceRequest(ServiceRequest serviceRequest) {
-        this.serviceRequest = serviceRequest;
+    public void setService(Service service) {
+        this.service = service;
     }
 }

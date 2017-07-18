@@ -3,20 +3,28 @@ package de.cosmicit.pms.controller;
 import de.cosmicit.pms.controller.exception.InvalidParameterException;
 import de.cosmicit.pms.controller.exception.ResourceNotFoundException;
 import de.cosmicit.pms.model.entities.Customer;
+import de.cosmicit.pms.model.entities.Subscription;
 import de.cosmicit.pms.model.repository.CustomerRepository;
+import de.cosmicit.pms.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/user")
 public class UserController extends AbstractRestController<Customer> {
 
+    public static final String SUBSCRIPTION_URL = "/user/subscription";
+
     @Autowired
     CustomerRepository userRepository;
+
+    @Autowired
+    CustomerService customerService;
 
     @Override
     public Class<Customer> getEntityClass() {
@@ -66,5 +74,13 @@ public class UserController extends AbstractRestController<Customer> {
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) throws ResourceNotFoundException {
         super.delete(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(path = "/{id}/subscription", method = RequestMethod.GET)
+    public Set<Subscription> getUserSubscriptions(@PathVariable("id") Long customerId) {
+        Customer customer = userRepository.findOne(customerId);
+        Set<Subscription> subscriptions = customerService.getSubscriptionsForCustomer(customer);
+        return subscriptions;
     }
 }
