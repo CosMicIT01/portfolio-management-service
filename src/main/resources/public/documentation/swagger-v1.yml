@@ -19,7 +19,7 @@ tags:
   - name: Admin API
     description: API with for admin user
   - name: customer
-    description: Data access on `Customer`
+    description: Data access on `Customer (Future)`
 produces:
   - application/json
 consumers:
@@ -32,7 +32,12 @@ paths:
   /agent:
     $ref: 'v1/agent.yml#/agent'
   /agent/{id}:
-    $ref: 'v1/agent.yml#/agent'
+    $ref: 'v1/agent.yml#/agentId'
+  /outlet:
+    $ref: 'v1/outlet.yml#/outlet'
+  /outlet/{id}:
+    $ref: 'v1/outlet.yml#/outletId'
+
 
 
 

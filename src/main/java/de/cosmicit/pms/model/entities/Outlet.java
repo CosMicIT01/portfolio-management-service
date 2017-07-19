@@ -30,6 +30,15 @@ public class Outlet {
     @Column(name = "outlet_name")
     private String outletName;
 
+    @Column(name = "outlet_address")
+    private String address;
+
+    @Column(name = "outlet_city")
+    private String city;
+
+    @Column(name = "outlet_country")
+    private String country;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "agent")
     @JsonSerialize(using = CollectionSerializer.class)
     @JsonDeserialize(using = CollectionDeserializer.class)
@@ -81,5 +90,27 @@ public class Outlet {
         }
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 }

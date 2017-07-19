@@ -1,0 +1,214 @@
+---
+outlet:
+  get:
+    tags:
+      - Admin API
+      - Public API
+      - User API
+    summary: Get array of outlet
+    description: |
+      The GET outlet as list.
+    responses:
+      200:
+        description: An array of outlet
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/models/outlet'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+  post:
+    tags:
+      - Admin API
+    summary: Create a Outlet
+    description: |
+      Create Outlet
+    parameters:
+      - $ref: '#/definitions/parameters/requestCreateBody'
+    responses:
+      201:
+        description: new instance of outlet
+        schema:
+          $ref: '#/definitions/models/outlet'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      401:
+        $ref: 'definitions.yml#/responses/401'
+outletId:
+  get:
+    tags:
+      - Public API
+      - User API
+      - Admin API
+    summary: Get single outlet
+    description: Get single outlet object with identity.
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      200:
+        description: '`Organizer` object in JSON'
+        schema:
+          $ref: '#/definitions/models/outlet'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  put:
+    tags:
+      - Admin API
+    summary: Update single outlet
+    description: Update single outlet
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated outlet object
+        schema:
+          $ref: '#/definitions/models/outlet'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  patch:
+    tags:
+      - Admin API
+    summary: Partial update single outlet
+    description: Partial Update single outlet
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated outlet object
+        schema:
+          $ref: '#/definitions/models/outlet'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  delete:
+    tags:
+      - Admin API
+    summary: Delete Outlet
+    description: Delete outlet object
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      204:
+        $ref: 'definitions.yml#/responses/204'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+
+#########################
+#      local objects    #
+#########################
+definitions:
+#################
+#   parameters  #
+#################
+  parameters:
+    id:
+      name: id
+      in: path
+      description: identity of outlet object
+      required: true
+      format: int64
+      type: integer
+    outletId:
+      name: outletId
+      in: path
+      description: identity of outlet object
+      required: true
+      format: int64
+      type: integer
+    requestCreateBody:
+      name: body
+      in: body
+      description: raw request body json for post
+      required: true
+      schema:
+        $ref: '#/definitions/models/outletCreateRequest'
+    requestUpdateBody:
+      name: body
+      in: body
+      description: raw request body json for post
+      required: true
+      schema:
+        $ref: '#/definitions/models/outletUpdateRequest'
+#################
+#     models    #
+#################
+  models:
+    outlet:
+      type: object
+      required:
+        - id
+        - outletType
+        - outletName
+        - address
+        - city
+        - country
+      properties:
+        id:
+          type: integer
+          format: int64
+        outletType:
+          type: integer
+          format: int64
+        outletName:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+      example:
+        id: 1
+        outletType: 1
+        outletName: Saturn Mediamarkt
+        address: Opposite OEZ
+        city: "München"
+        country: "DE"
+    outletCreateRequest:
+      type: object
+      properties:
+        outletType:
+          type: integer
+          format: int64
+        outletName:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+      example:
+        outletType: 1
+        outletName: Saturn Mediamarkt
+        address: Opposite OEZ
+        city: "München"
+        country: "DE"
+    outletUpdateRequest:
+      type: object
+      properties:
+        outletType:
+          type: integer
+          format: int64
+        outletName:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+      example:
+        outletType: 1
+        outletName: Saturn Mediamarkt
+        address: Opposite OEZ
+        city: "München"
+        country: "DE"
+
