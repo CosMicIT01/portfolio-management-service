@@ -75,6 +75,10 @@ public class Outlet {
         this.outletType = outletType;
     }
 
+    public Set<ServiceRequest> getServiceRequests() {
+        return serviceRequests;
+    }
+
     public void setServiceRequests(Set<ServiceRequest> serviceRequests) {
         if (!this.serviceRequests.isEmpty()) {
             this.serviceRequests.forEach((ServiceRequest serviceRequest) -> serviceRequest.setOutlet(null));

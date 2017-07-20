@@ -117,8 +117,10 @@ CREATE TABLE IF NOT EXISTS `tbl_service` (
 -- Dumping structure for table db_portfolio_management_service.tbl_service_provider
 CREATE TABLE IF NOT EXISTS `tbl_service_provider` (
   `service_provider_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `service_id` int(10) unsigned DEFAULT NULL,
   `service_provider_name` varchar(45) DEFAULT NULL,
+  `service_provider_region` varchar(45) DEFAULT NULL,
+  `service_provider_domain` varchar(45) DEFAULT NULL,
+  `service_provider_registration_number` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`service_provider_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

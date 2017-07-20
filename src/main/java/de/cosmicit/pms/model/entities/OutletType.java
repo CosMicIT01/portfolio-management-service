@@ -56,6 +56,9 @@ public class OutletType {
         this.outletTypeDescription = outletTypeDescription;
     }
 
+    public Set<Outlet> getOutlets() {
+        return outlets;
+    }
 
     public void setOutlets(Set<Outlet> outlets) {
         if (!this.outlets.isEmpty()) {

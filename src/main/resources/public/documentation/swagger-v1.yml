@@ -37,6 +37,10 @@ paths:
     $ref: 'v1/outlet.yml#/outlet'
   /outlet/{id}:
     $ref: 'v1/outlet.yml#/outletId'
+  /serviceprovider:
+    $ref: 'v1/serviceProvider.yml#/serviceProvider'
+  /serviceprovider/{id}:
+    $ref: 'v1/serviceProvider.yml#/serviceProviderId'
 
 
 

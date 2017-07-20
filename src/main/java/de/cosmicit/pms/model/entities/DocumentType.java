@@ -56,6 +56,9 @@ public class DocumentType {
         this.documentTypeDescription = documentTypeDescription;
     }
 
+    public Set<Document> getDocuments() {
+        return documents;
+    }
 
     public void setDocuments(Set<Document> documents) {
         if (!this.documents.isEmpty()) {

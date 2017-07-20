@@ -1,0 +1,197 @@
+---
+serviceProvider:
+  get:
+    tags:
+      - Admin API
+    summary: Get array of Service Provider
+    description: |
+      The GET serviceProvider as list.
+    responses:
+      200:
+        description: An array of Service Provider
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/models/serviceProvider'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+  post:
+    tags:
+      - Admin API
+    summary: Create a Service Provider
+    description: |
+      Create ServiceProvider
+    parameters:
+      - $ref: '#/definitions/parameters/requestCreateBody'
+    responses:
+      201:
+        description: new instance of Service Provider
+        schema:
+          $ref: '#/definitions/models/serviceProvider'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      401:
+        $ref: 'definitions.yml#/responses/401'
+serviceProviderId:
+  get:
+    tags:
+      - Public API
+      - User API
+    summary: Get single Service Provider
+    description: Get single Service Provider object with identity.
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      200:
+        description: '`Organizer` object in JSON'
+        schema:
+          $ref: '#/definitions/models/serviceProvider'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  put:
+    tags:
+      - Admin API
+    summary: Update single Service Provider
+    description: Update single Service Provider
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated Service Provider object
+        schema:
+          $ref: '#/definitions/models/serviceProvider'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  patch:
+    tags:
+      - Admin API
+    summary: Partial update single Service Provider
+    description: Partial Update single Service Provider
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated Service Provider object
+        schema:
+          $ref: '#/definitions/models/serviceProvider'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  delete:
+    tags:
+      - Admin API
+    summary: Delete Service Provider
+    description: Delete serviceProvider object
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      204:
+        $ref: 'definitions.yml#/responses/204'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+
+#########################
+#      local objects    #
+#########################
+definitions:
+#################
+#   parameters  #
+#################
+  parameters:
+    id:
+      name: id
+      in: path
+      description: identity of Service Provider object
+      required: true
+      format: int64
+      type: integer
+    serviceProvider:
+      name: serviceProvider
+      in: path
+      description: identity of Service Provider object
+      required: true
+      format: int64
+      type: integer
+    requestCreateBody:
+      name: body
+      in: body
+      description: raw request body json for post
+      required: true
+      schema:
+        $ref: '#/definitions/models/serviceProviderCreateRequest'
+    requestUpdateBody:
+      name: body
+      in: body
+      description: raw request body json for post
+      required: true
+      schema:
+        $ref: '#/definitions/models/serviceProviderUpdateRequest'
+#################
+#     models    #
+#################
+  models:
+    serviceProvider:
+      type: object
+      required:
+        - id
+        - name
+        - region
+        - domain
+        - registrationNumber
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        region:
+          type: string
+        domain:
+          type: string
+        registrationNumber:
+          type: string
+      example:
+        id: 1
+        name: testserviceProvider
+        region: Max
+        domain: Musterman
+        registrationNumber: BABE21121CAFE43454
+    serviceProviderCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        region:
+          type: string
+        domain:
+          type: string
+        registrationNumber:
+          type: string
+      example:
+        name: testserviceProvider
+        region: Max
+        domain: Musterman
+        registrationNumber: BABE21121CAFE43454
+    serviceProviderUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        region:
+          type: string
+        domain:
+          type: string
+        registrationNumber:
+          type: string
+      example:
+        name: testserviceProvider
+        region: Max
+        domain: Musterman
+        registrationNumber: BABE21121CAFE43454

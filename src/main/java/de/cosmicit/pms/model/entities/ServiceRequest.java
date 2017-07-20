@@ -117,7 +117,11 @@ public class ServiceRequest {
         this.outlet = outlet;
     }
 
-    public void setDocumentts(Set<Document> documents) {
+    public Set<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(Set<Document> documents) {
         if (!this.documents.isEmpty()) {
             this.documents.forEach((Document document) -> document.setServiceRequest(null));
             this.documents.clear();
