@@ -2,6 +2,7 @@ package de.cosmicit.pms.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.cosmicit.pms.model.deserializers.ReferenceDeserializer;
@@ -15,19 +16,39 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "tbl_document")
 public class Document {
 
+    public enum ApprovalStatus {
+        PENDING,
+        REJECTED,
+        APPROVED;
+        @JsonValue
+        public String value() { return this.name().toLowerCase(); }
+    }
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "document_id", unique = true, nullable = false)
-    private Long Id;
+    private Long id;
 
     @Column(name = "document_name")
-    private String documentName;
+    private String name;
+
+    @Column(name = "document_url")
+    private String url;
 
     @Column(name = "signed_by")
     private String signedBy;
 
+    @Column(name = "approved_by")
+    private String approvedBy;
+
+    @Column(name = "approval_status")
+    private ApprovalStatus approvalStatus;
+
     @Column(name = "creation_date")
     private Date creationDate;
+
+    @Column(name = "approval_date")
+    private Date approvalDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "document_link_document_type_id")
@@ -43,20 +64,21 @@ public class Document {
     @JsonDeserialize(using = ReferenceDeserializer.class)
     private ServiceRequest serviceRequest;
 
+
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getDocumentName() {
-        return documentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSignedBy() {
@@ -89,5 +111,37 @@ public class Document {
 
     public void setServiceRequest(ServiceRequest serviceRequest) {
         this.serviceRequest = serviceRequest;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public ApprovalStatus getApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(ApprovalStatus approvalStatus) {
+        this.approvalStatus = approvalStatus;
+    }
+
+    public String getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(String approvedBy) {
+        this.approvedBy = approvedBy;
+    }
+
+    public Date getApprovalDate() {
+        return approvalDate;
+    }
+
+    public void setApprovalDate(Date approvalDate) {
+        this.approvalDate = approvalDate;
     }
 }

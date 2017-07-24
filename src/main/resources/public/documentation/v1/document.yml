@@ -1,52 +1,51 @@
 ---
-agent:
+document:
   get:
     tags:
       - Admin API
-      - Public API
-    summary: Get array of agent
+    summary: Get array of document
     description: |
-      The GET agent as list.
+      The GET document as list.
     responses:
       200:
-        description: An array of agent
+        description: An array of document
         schema:
           type: array
           items:
-            $ref: '#/definitions/models/agent'
+            $ref: '#/definitions/models/document'
       400:
         $ref: 'definitions.yml#/responses/400'
   post:
     tags:
       - Admin API
-    summary: Create a Agent
+    summary: Create a Document
     description: |
-      Create Agent
+      Create Document
     parameters:
       - $ref: '#/definitions/parameters/requestCreateBody'
     responses:
       201:
-        description: new instance of agent
+        description: new instance of document
         schema:
-          $ref: '#/definitions/models/agent'
+          $ref: '#/definitions/models/document'
       400:
         $ref: 'definitions.yml#/responses/400'
       401:
         $ref: 'definitions.yml#/responses/401'
-agentId:
+documentId:
   get:
     tags:
       - Public API
       - User API
-    summary: Get single agent
-    description: Get single agent object with identity.
+    summary: Get single document
+    description: Get single document object with identity.
     parameters:
       - $ref: '#/definitions/parameters/id'
     responses:
       200:
         description: '`Organizer` object in JSON'
         schema:
-          $ref: '#/definitions/models/agent'
+          $ref: '#/definitions/models/document'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -54,16 +53,16 @@ agentId:
   put:
     tags:
       - User API
-    summary: Update single agent
-    description: Update single agent
+    summary: Update single document
+    description: Update single document
     parameters:
       - $ref: '#/definitions/parameters/id'
       - $ref: '#/definitions/parameters/requestUpdateBody'
     responses:
       202:
-        description: Updated agent object
+        description: Updated document object
         schema:
-          $ref: '#/definitions/models/agent'
+          $ref: '#/definitions/models/document'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -71,16 +70,16 @@ agentId:
   patch:
     tags:
       - User API
-    summary: Partial update single agent
-    description: Partial Update single agent
+    summary: Partial update single document
+    description: Partial Update single document
     parameters:
       - $ref: '#/definitions/parameters/id'
       - $ref: '#/definitions/parameters/requestUpdateBody'
     responses:
       202:
-        description: Updated agent object
+        description: Updated document object
         schema:
-          $ref: '#/definitions/models/agent'
+          $ref: '#/definitions/models/document'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -88,8 +87,8 @@ agentId:
   delete:
     tags:
       - Admin API
-    summary: Delete Agent
-    description: Delete agent object
+    summary: Delete Document
+    description: Delete document object
     parameters:
       - $ref: '#/definitions/parameters/id'
     responses:
@@ -109,14 +108,14 @@ definitions:
     id:
       name: id
       in: path
-      description: identity of agent object
+      description: identity of document object
       required: true
       format: int64
       type: integer
-    agent:
-      name: agent
+    documentId:
+      name: documentId
       in: path
-      description: identity of agent object
+      description: identity of document object
       required: true
       format: int64
       type: integer
@@ -126,151 +125,137 @@ definitions:
       description: raw request body json for post
       required: true
       schema:
-        $ref: '#/definitions/models/agentCreateRequest'
+        $ref: '#/definitions/models/documentCreateRequest'
     requestUpdateBody:
       name: body
       in: body
       description: raw request body json for post
       required: true
       schema:
-        $ref: '#/definitions/models/agentUpdateRequest'
+        $ref: '#/definitions/models/documentUpdateRequest'
 #################
 #     models    #
 #################
   models:
-    agent:
+    document:
       type: object
       required:
         - id
-        - agentName
-        - firstName
-        - lastName
-        - email
-        - birthDate
-        - gender
-        - street
-        - houseNumber
-        - zipcode
-        - city
-        - country
+        - name
+        - url
+        - documentType
+        - serviceRequest
+        - signedBy
+        - approvedBy
+        - approvalStatus
+        - creationDate
+        - approvalDate
       properties:
         id:
           type: integer
           format: int64
-        agentName:
+        name:
           type: string
-        firstName:
+        url:
           type: string
-        lastName:
+        documentType:
           type: string
-        email:
+        serviceRequest:
+          type: integer
+          format: int64
+        signedBy:
           type: string
-        birthDate:
+        aprovedBy:
           type: string
-        gender:
+        approvalStatus:
           type: string
           enum:
-            - male
-            - female
-        street:
+            - pending
+            - approved
+        creationDate:
           type: string
-        houseNumber:
-          type: string
-        zipcode:
-          type: string
-        city:
-          type: string
-        country:
+        approvalDate:
           type: string
       example:
         id: 1
-        agentName: testagent
-        firstName: Max
-        lastName: Musterman
-        email: max.mustermann@cosmicit.de
-        birthDate: "2000-1-1"
-        gender: male
-        street: "Müncherstr."
-        houseNumber: "1"
-        zipcode: "80686"
-        city: "München"
-        country: "DE"
-    agentCreateRequest:
+        name: testdocument
+        url: testUrl
+        documentType: 1
+        serviceRequest: 1
+        signedBy: userTest
+        approvedBy: admin
+        approvalStatus: pending
+        creationDate: "24-07-2017"
+        approvalDate: "24-07-2017"
+    documentCreateRequest:
       type: object
       properties:
-        firstName:
+        name:
           type: string
-        lastName:
+        url:
           type: string
-        agentName:
+        documentType:
           type: string
-        email:
+        serviceRequest:
+          type: integer
+          format: int64
+        signedBy:
           type: string
-        birthDate:
+        aprovedBy:
           type: string
-        gender:
+        approvalStatus:
           type: string
           enum:
-            - male
-            - female
-        street:
+            - pending
+            - approved
+        creationDate:
           type: string
-        houseNumber:
-          type: string
-        zipcode:
-          type: string
-        city:
-          type: string
-        country:
+        approvalDate:
           type: string
       example:
-        firstName: Max
-        lastName: Musterman
-        agentName: MaxMusterman
-        email: max.mustermann@cosmicit.de
-        birthDate: "2000-1-1"
-        gender: male
-        street: "Müncherstr."
-        houseNumber: "1"
-        zipcode: "80686"
-        city: "München"
-        country: "DE"
-    agentUpdateRequest:
+        id: 1
+        name: testdocument
+        url: testUrl
+        documentType: 1
+        serviceRequest: 1
+        signedBy: userTest
+        approvedBy: admin
+        approvalStatus: pending
+        creationDate: "24-07-2017"
+        approvalDate: "24-07-2017"
+    documentUpdateRequest:
       type: object
       properties:
-        firstName:
+        name:
           type: string
-        lastName:
+        url:
           type: string
-        email:
+        documentType:
           type: string
-        birthDate:
+        serviceRequest:
+          type: integer
+          format: int64
+        signedBy:
           type: string
-        gender:
+        aprovedBy:
+          type: string
+        approvalStatus:
           type: string
           enum:
-            - male
-            - female
-        street:
+            - pending
+            - approved
+        creationDate:
           type: string
-        houseNumber:
-          type: string
-        zipcode:
-          type: string
-        city:
-          type: string
-        country:
+        approvalDate:
           type: string
       example:
-        firstName: Max
-        lastName: Musterman
-        agentName: MaxMusterman
-        email: max.mustermann@cosmicit.de
-        birthDate: "2000-1-1"
-        gender: male
-        street: "Müncherstr."
-        houseNumber: "1"
-        zipcode: "80686"
-        city: "München"
-        country: "DE"
-
+        id: 1
+        name: testdocument
+        url: testUrl
+        documentType: 1
+        serviceRequest: 1
+        signedBy: userTest
+        approvedBy: admin
+        approvalStatus: approved
+        creationDate: "24-07-2017"
+        approvalDate: "24-07-2017"

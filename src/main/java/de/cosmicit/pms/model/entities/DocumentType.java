@@ -19,7 +19,7 @@ public class DocumentType {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "document_type_id", unique = true, nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "document_type_code")
     private String documentTypeCode;
@@ -32,11 +32,11 @@ public class DocumentType {
     @JsonDeserialize(using = CollectionDeserializer.class)
     private Set<Document> documents = new HashSet<>();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -41,6 +41,14 @@ paths:
     $ref: 'v1/serviceProvider.yml#/serviceProvider'
   /serviceprovider/{id}:
     $ref: 'v1/serviceProvider.yml#/serviceProviderId'
+  /document:
+    $ref: 'v1/document.yml#/document'
+  /document/{id}:
+    $ref: 'v1/document.yml#/documentId'
+  /subscription:
+    $ref: 'v1/subscription.yml#/subscription'
+  /subscription/{id}:
+    $ref: 'v1/subscription.yml#/subscriptionId'
 
 
 

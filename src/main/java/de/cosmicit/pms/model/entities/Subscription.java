@@ -18,10 +18,10 @@ public class Subscription {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "subscription_id", unique = true, nullable = false)
-    private Long Id;
+    private Long id;
 
     @Column(name = "subscription_name")
-    private String subscriptionName;
+    private String name;
 
     @Column(name = "creation_date")
     private Date creationDate;
@@ -55,19 +55,19 @@ public class Subscription {
     private Customer customer;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getSubscriptionName() {
-        return subscriptionName;
+    public String getName() {
+        return name;
     }
 
-    public void setSubscriptionName(String subscriptionName) {
-        this.subscriptionName = subscriptionName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getCreationDate() {
@@ -92,5 +92,29 @@ public class Subscription {
 
     public void setService(Service service) {
         this.service = service;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public Date getRenewalDate() {
+        return renewalDate;
+    }
+
+    public void setRenewalDate(Date renewalDate) {
+        this.renewalDate = renewalDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

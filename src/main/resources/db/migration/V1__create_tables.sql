@@ -47,8 +47,12 @@ CREATE TABLE IF NOT EXISTS `tbl_customer` (
 CREATE TABLE IF NOT EXISTS `tbl_document` (
   `document_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `document_name` varchar(45) DEFAULT NULL,
+  `document_url` varchar(255) DEFAULT NULL,
   `signed_by` varchar(45) DEFAULT NULL,
+  `approved_by` varchar(45) DEFAULT NULL,
+  `approval_status` varchar(15) DEFAULT NULL,
   `creation_date` datetime DEFAULT NULL,
+  `approval_date` datetime DEFAULT NULL,
   `document_link_service_request_id` int(11) unsigned DEFAULT NULL,
   `document_link_document_type_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`document_id`),
@@ -159,6 +163,7 @@ CREATE TABLE IF NOT EXISTS `tbl_service_status` (
 -- Dumping structure for table db_portfolio_management_service.tbl_subscription
 CREATE TABLE IF NOT EXISTS `tbl_subscription` (
   `subscription_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `subscription_name` varchar(45) DEFAULT NULL,
   `subscription_link_service_id` int(10) unsigned DEFAULT NULL,
   `subscription_link_customer_id` int(10) unsigned DEFAULT NULL,
   `expiry_date` datetime DEFAULT NULL,

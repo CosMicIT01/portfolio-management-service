@@ -19,7 +19,7 @@ public class SubscriptionType {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "subscription_type_id", unique = true, nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "subscription_type_code")
     private String subscriptionTypeCode;
@@ -32,11 +32,11 @@ public class SubscriptionType {
     @JsonDeserialize(using = CollectionDeserializer.class)
     private Set<Subscription> subscriptions = new HashSet<>();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
