@@ -38,6 +38,11 @@ public class Service {
     @JsonDeserialize(using = CollectionDeserializer.class)
     private Set<ServiceRequest> serviceRequests = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "service")
+    @JsonSerialize(using = CollectionSerializer.class)
+    @JsonDeserialize(using = CollectionDeserializer.class)
+    private Set<Promotion> promotions = new HashSet<>();
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "service_link_service_provider_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -93,6 +98,26 @@ public class Service {
     public void addServiceRequest(ServiceRequest serviceRequest) {
         if (!this.serviceRequests.contains(serviceRequest)) {
             this.serviceRequests.add(serviceRequest);
+        }
+    }
+
+
+    public Set<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(Set<Promotion> promotions) {
+        if (!this.promotions.isEmpty()) {
+            this.promotions.forEach((Promotion promotion) -> promotion.setService(null));
+            this.promotions.clear();
+        }
+        promotions.forEach((Promotion promotion) -> promotion.setService(this));
+        this.promotions.addAll(promotions);
+    }
+
+    public void addPromotion(Promotion promotion) {
+        if (!this.promotions.contains(promotion)) {
+            this.promotions.add(promotion);
         }
     }
 }

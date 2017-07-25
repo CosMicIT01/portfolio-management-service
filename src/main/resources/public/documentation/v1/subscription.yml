@@ -174,9 +174,9 @@ definitions:
         subscriptionType: 1
         service: 1
         customer: 1
-        creationDate: "24-07-2017"
-        expiryDate: "24-07-2017"
-        renewalDate: "24-07-2017"
+        creationDate: "2017-07-24T20:00:00Z"
+        expiryDate: "2017-07-25T20:00:00Z"
+        renewalDate: "2017-07-26T20:00:00Z"
     subscriptionCreateRequest:
       type: object
       properties:
@@ -197,14 +197,13 @@ definitions:
         renewalDate:
           type: string
       example:
-        id: 1
         name: testsubscription
         subscriptionType: 1
         service: 1
         customer: 1
-        creationDate: "24-07-2017"
-        expiryDate: "24-07-2017"
-        renewalDate: "24-07-2017"
+        creationDate: "2017-07-24T20:00:00Z"
+        expiryDate: "2017-07-25T20:00:00Z"
+        renewalDate: "2017-07-26T20:00:00Z"
     subscriptionUpdateRequest:
       type: object
       properties:
@@ -225,11 +224,10 @@ definitions:
         renewalDate:
           type: string
       example:
-        id: 1
         name: testsubscription
         subscriptionType: 1
         service: 1
         customer: 1
-        creationDate: "24-07-2017"
-        expiryDate: "24-07-2017"
-        renewalDate: "24-07-2017"
+        creationDate: "2017-07-24T20:00:00Z"
+        expiryDate: "2017-07-25T20:00:00Z"
+        renewalDate: "2017-07-26T20:00:00Z"

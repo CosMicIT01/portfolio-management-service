@@ -4,9 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.cosmicit.pms.model.deserializers.ReferenceDeserializer;
+import de.cosmicit.pms.model.deserializers.UTCDateTimeDeserializer;
+import de.cosmicit.pms.model.serializers.UTCDateTimeSerializer;
+import org.hibernate.annotations.*;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Parameter;
+import javax.persistence.Table;
 import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -24,13 +33,25 @@ public class Subscription {
     private String name;
 
     @Column(name = "creation_date")
-    private Date creationDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = {@org.hibernate.annotations.Parameter(name = "databaseZone", value = "UTC"), @org.hibernate.annotations.Parameter(name = "javaZone", value = "jvm")})
+    @JsonDeserialize(using = UTCDateTimeDeserializer.class)
+    @JsonSerialize(using = UTCDateTimeSerializer.class)
+    private DateTime creationDate;
 
     @Column(name = "expiry_date")
-    private Date expiryDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = {@org.hibernate.annotations.Parameter(name = "databaseZone", value = "UTC"), @org.hibernate.annotations.Parameter(name = "javaZone", value = "jvm")})
+    @JsonDeserialize(using = UTCDateTimeDeserializer.class)
+    @JsonSerialize(using = UTCDateTimeSerializer.class)
+    private DateTime expiryDate;
 
     @Column(name = "renewal_date")
-    private Date renewalDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = {@org.hibernate.annotations.Parameter(name = "databaseZone", value = "UTC"), @org.hibernate.annotations.Parameter(name = "javaZone", value = "jvm")})
+    @JsonDeserialize(using = UTCDateTimeDeserializer.class)
+    @JsonSerialize(using = UTCDateTimeSerializer.class)
+    private DateTime renewalDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "subscription_link_subscription_type_id")
@@ -70,11 +91,11 @@ public class Subscription {
         this.name = name;
     }
 
-    public Date getCreationDate() {
+    public DateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(DateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -94,19 +115,19 @@ public class Subscription {
         this.service = service;
     }
 
-    public Date getExpiryDate() {
+    public DateTime getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(DateTime expiryDate) {
         this.expiryDate = expiryDate;
     }
 
-    public Date getRenewalDate() {
+    public DateTime getRenewalDate() {
         return renewalDate;
     }
 
-    public void setRenewalDate(Date renewalDate) {
+    public void setRenewalDate(DateTime renewalDate) {
         this.renewalDate = renewalDate;
     }
 

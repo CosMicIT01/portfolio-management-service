@@ -96,10 +96,14 @@ CREATE TABLE IF NOT EXISTS `tbl_outlet_type` (
 
 -- Data exporting was unselected.
 -- Dumping structure for table db_portfolio_management_service.tbl_promotions
-CREATE TABLE IF NOT EXISTS `tbl_promotions` (
+CREATE TABLE IF NOT EXISTS `tbl_promotion` (
   `promotion_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `promotions_link_service_id` int(10) unsigned DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
+  `code` varchar(10) DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
   PRIMARY KEY (`promotion_id`),
   KEY `fk_promotions_service` (`promotions_link_service_id`),
   CONSTRAINT `fk_promotions_service` FOREIGN KEY (`promotions_link_service_id`) REFERENCES `tbl_service` (`service_id`)

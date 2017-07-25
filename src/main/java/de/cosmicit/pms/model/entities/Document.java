@@ -5,10 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.cosmicit.pms.model.deserializers.ReferenceDeserializer;
+import de.cosmicit.pms.model.deserializers.UTCDateTimeDeserializer;
+import de.cosmicit.pms.model.serializers.UTCDateTimeSerializer;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -20,8 +24,11 @@ public class Document {
         PENDING,
         REJECTED,
         APPROVED;
+
         @JsonValue
-        public String value() { return this.name().toLowerCase(); }
+        public String value() {
+            return this.name().toLowerCase();
+        }
     }
 
     @Id
@@ -45,10 +52,18 @@ public class Document {
     private ApprovalStatus approvalStatus;
 
     @Column(name = "creation_date")
-    private Date creationDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = {@org.hibernate.annotations.Parameter(name = "databaseZone", value = "UTC"), @org.hibernate.annotations.Parameter(name = "javaZone", value = "jvm")})
+    @JsonDeserialize(using = UTCDateTimeDeserializer.class)
+    @JsonSerialize(using = UTCDateTimeSerializer.class)
+    private DateTime creationDate;
 
     @Column(name = "approval_date")
-    private Date approvalDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = {@org.hibernate.annotations.Parameter(name = "databaseZone", value = "UTC"), @org.hibernate.annotations.Parameter(name = "javaZone", value = "jvm")})
+    @JsonDeserialize(using = UTCDateTimeDeserializer.class)
+    @JsonSerialize(using = UTCDateTimeSerializer.class)
+    private DateTime approvalDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "document_link_document_type_id")
@@ -87,14 +102,6 @@ public class Document {
 
     public void setSignedBy(String signedBy) {
         this.signedBy = signedBy;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public DocumentType getDocumentType() {
@@ -137,11 +144,15 @@ public class Document {
         this.approvedBy = approvedBy;
     }
 
-    public Date getApprovalDate() {
+    public DateTime getApprovalDate() {
         return approvalDate;
     }
 
-    public void setApprovalDate(Date approvalDate) {
+    public void setApprovalDate(DateTime approvalDate) {
         this.approvalDate = approvalDate;
+    }
+
+    public void setCreationDate(DateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

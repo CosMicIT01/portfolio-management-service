@@ -49,6 +49,10 @@ paths:
     $ref: 'v1/subscription.yml#/subscription'
   /subscription/{id}:
     $ref: 'v1/subscription.yml#/subscriptionId'
+  /promotion:
+    $ref: 'v1/promotion.yml#/promotion'
+  /promotion/{id}:
+    $ref: 'v1/promotion.yml#/promotionId'
 
 
 

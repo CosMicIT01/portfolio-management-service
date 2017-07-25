@@ -1,51 +1,51 @@
 ---
-document:
+promotion:
   get:
     tags:
       - Admin API
-    summary: Get array of document
+    summary: Get array of promotion
     description: |
-      The GET document as list.
+      The GET promotion as list.
     responses:
       200:
-        description: An array of document
+        description: An array of promotion
         schema:
           type: array
           items:
-            $ref: '#/definitions/models/document'
+            $ref: '#/definitions/models/promotion'
       400:
         $ref: 'definitions.yml#/responses/400'
   post:
     tags:
       - Admin API
-    summary: Create a Document
+    summary: Create a Promotion
     description: |
-      Create Document
+      Create Promotion
     parameters:
       - $ref: '#/definitions/parameters/requestCreateBody'
     responses:
       201:
-        description: new instance of document
+        description: new instance of promotion
         schema:
-          $ref: '#/definitions/models/document'
+          $ref: '#/definitions/models/promotion'
       400:
         $ref: 'definitions.yml#/responses/400'
       401:
         $ref: 'definitions.yml#/responses/401'
-documentId:
+promotionId:
   get:
     tags:
       - Public API
       - User API
-    summary: Get single document
-    description: Get single document object with identity.
+    summary: Get single promotion
+    description: Get single promotion object with identity.
     parameters:
       - $ref: '#/definitions/parameters/id'
     responses:
       200:
         description: '`Organizer` object in JSON'
         schema:
-          $ref: '#/definitions/models/document'
+          $ref: '#/definitions/models/promotion'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -53,16 +53,16 @@ documentId:
   put:
     tags:
       - User API
-    summary: Update single document
-    description: Update single document
+    summary: Update single promotion
+    description: Update single promotion
     parameters:
       - $ref: '#/definitions/parameters/id'
       - $ref: '#/definitions/parameters/requestUpdateBody'
     responses:
       202:
-        description: Updated document object
+        description: Updated promotion object
         schema:
-          $ref: '#/definitions/models/document'
+          $ref: '#/definitions/models/promotion'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -70,16 +70,16 @@ documentId:
   patch:
     tags:
       - User API
-    summary: Partial update single document
-    description: Partial Update single document
+    summary: Partial update single promotion
+    description: Partial Update single promotion
     parameters:
       - $ref: '#/definitions/parameters/id'
       - $ref: '#/definitions/parameters/requestUpdateBody'
     responses:
       202:
-        description: Updated document object
+        description: Updated promotion object
         schema:
-          $ref: '#/definitions/models/document'
+          $ref: '#/definitions/models/promotion'
       400:
         $ref: 'definitions.yml#/responses/400'
       404:
@@ -87,8 +87,8 @@ documentId:
   delete:
     tags:
       - Admin API
-    summary: Delete Document
-    description: Delete document object
+    summary: Delete Promotion
+    description: Delete promotion object
     parameters:
       - $ref: '#/definitions/parameters/id'
     responses:
@@ -108,14 +108,14 @@ definitions:
     id:
       name: id
       in: path
-      description: identity of document object
+      description: identity of promotion object
       required: true
       format: int64
       type: integer
-    documentId:
-      name: documentId
+    promotionId:
+      name: promotionId
       in: path
-      description: identity of document object
+      description: identity of promotion object
       required: true
       format: int64
       type: integer
@@ -125,135 +125,96 @@ definitions:
       description: raw request body json for post
       required: true
       schema:
-        $ref: '#/definitions/models/documentCreateRequest'
+        $ref: '#/definitions/models/promotionCreateRequest'
     requestUpdateBody:
       name: body
       in: body
       description: raw request body json for post
       required: true
       schema:
-        $ref: '#/definitions/models/documentUpdateRequest'
+        $ref: '#/definitions/models/promotionUpdateRequest'
 #################
 #     models    #
 #################
   models:
-    document:
+    promotion:
       type: object
       required:
         - id
         - name
-        - url
-        - documentType
-        - serviceRequest
-        - signedBy
-        - approvedBy
-        - approvalStatus
-        - creationDate
-        - approvalDate
+        - description
+        - code
+        - service
+        - startDate
+        - endDate
       properties:
         id:
           type: integer
           format: int64
         name:
           type: string
-        url:
+        description:
           type: string
-        documentType:
+        code:
           type: string
-        serviceRequest:
+        service:
           type: integer
           format: int64
-        signedBy:
+        startDate:
           type: string
-        aprovedBy:
-          type: string
-        approvalStatus:
-          type: string
-          enum:
-            - pending
-            - approved
-        creationDate:
-          type: string
-        approvalDate:
+        endDate:
           type: string
       example:
         id: 1
-        name: testdocument
-        url: testUrl
-        documentType: 1
-        serviceRequest: 1
-        signedBy: userTest
-        approvedBy: admin
-        approvalStatus: pending
-        creationDate: "2017-07-24T20:00:00Z"
-        approvalDate: "2017-07-26T20:00:00Z"
-    documentCreateRequest:
+        name: testPromotion
+        description: Promotion for testing purpose
+        code: SUMMERFLASHSALE
+        service: 1
+        startDate: "2017-07-24T20:00:00Z"
+        endDate: "2017-07-25T20:00:00Z"
+    promotionCreateRequest:
       type: object
       properties:
         name:
           type: string
-        url:
+        description:
           type: string
-        documentType:
+        code:
           type: string
-        serviceRequest:
+        service:
           type: integer
           format: int64
-        signedBy:
+        startDate:
           type: string
-        aprovedBy:
-          type: string
-        approvalStatus:
-          type: string
-          enum:
-            - pending
-            - approved
-        creationDate:
-          type: string
-        approvalDate:
+        endDate:
           type: string
       example:
-        name: testdocument
-        url: testUrl
-        documentType: 1
-        serviceRequest: 1
-        signedBy: userTest
-        approvedBy: admin
-        approvalStatus: pending
-        creationDate: "2017-07-24T20:00:00Z"
-        approvalDate: "2017-07-26T20:00:00Z"
-    documentUpdateRequest:
+        name: testpromotion
+        description: Promotion for testing purpose
+        code: SUMMERFLASHSALE
+        service: 1
+        startDate: "2017-07-24T20:00:00Z"
+        endDate: "2017-07-25T20:00:00Z"
+    promotionUpdateRequest:
       type: object
       properties:
         name:
           type: string
-        url:
+        description:
           type: string
-        documentType:
+        code:
           type: string
-        serviceRequest:
+        service:
           type: integer
           format: int64
-        signedBy:
+        startDate:
           type: string
-        aprovedBy:
-          type: string
-        approvalStatus:
-          type: string
-          enum:
-            - pending
-            - approved
-        creationDate:
-          type: string
-        approvalDate:
+        endDate:
           type: string
       example:
-        name: testdocument
-        url: testUrl
-        documentType: 1
-        serviceRequest: 1
-        signedBy: userTest
-        approvedBy: admin
-        approvalStatus: approved
-        creationDate: "2017-07-24T20:00:00Z"
-        approvalDate: "2017-07-26T20:00:00Z"
+        name: testpromotion
+        description: Promotion for testing purpose
+        code: SUMMERFLASHSALE
+        service: 1
+        startDate: "2017-07-24T20:00:00Z"
+        endDate: "2017-07-25T20:00:00Z"
