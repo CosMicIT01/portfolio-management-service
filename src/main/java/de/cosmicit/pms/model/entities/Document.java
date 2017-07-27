@@ -79,6 +79,13 @@ public class Document {
     @JsonDeserialize(using = ReferenceDeserializer.class)
     private ServiceRequest serviceRequest;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "document_link_service_contract_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonDeserialize(using = ReferenceDeserializer.class)
+    private ServiceContract serviceContract;
+
 
     public Long getId() {
         return id;
@@ -154,5 +161,17 @@ public class Document {
 
     public void setCreationDate(DateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public DateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public ServiceContract getServiceContract() {
+        return serviceContract;
+    }
+
+    public void setServiceContract(ServiceContract serviceContract) {
+        this.serviceContract = serviceContract;
     }
 }

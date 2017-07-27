@@ -55,11 +55,14 @@ CREATE TABLE IF NOT EXISTS `tbl_document` (
   `approval_date` datetime DEFAULT NULL,
   `document_link_service_request_id` int(11) unsigned DEFAULT NULL,
   `document_link_document_type_id` int(10) unsigned DEFAULT NULL,
+  `document_link_service_contract_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`document_id`),
   KEY `fk_document_service_request` (`document_link_service_request_id`),
   KEY `fk_document_document_type` (`document_link_document_type_id`),
+  KEY `fk_document_service_contract` (`document_link_service_contract_id`),
   CONSTRAINT `fk_document_service_request` FOREIGN KEY (`document_link_service_request_id`) REFERENCES `tbl_service_request` (`service_request_id`),
-  CONSTRAINT `fk_document_document_type` FOREIGN KEY (`document_link_document_type_id`) REFERENCES `tbl_document_type` (`document_type_id`)
+  CONSTRAINT `fk_document_document_type` FOREIGN KEY (`document_link_document_type_id`) REFERENCES `tbl_document_type` (`document_type_id`),
+  CONSTRAINT `fk_document_service_contract` FOREIGN KEY (`document_link_service_contract_id`) REFERENCES `tbl_service_contract` (`contract_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
@@ -121,6 +124,20 @@ CREATE TABLE IF NOT EXISTS `tbl_service` (
   CONSTRAINT `fk_service_service_provider` FOREIGN KEY (`service_link_service_provider_id`) REFERENCES `tbl_service_provider` (`service_provider_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+-- Data exporting was unselected.
+-- Dumping structure for table db_portfolio_management_service.tbl_service_contract
+CREATE TABLE IF NOT EXISTS `tbl_service_contract` (
+  `contract_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `start_date` DATETIME NULL,
+  `end_date` DATETIME NULL,
+  `contract_duration` INT NULL,
+  `service_contract_link_service_id` INT(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`contract_id`),
+  KEY `fk_service_contract_service_idx` (`service_contract_link_service_id`),
+  CONSTRAINT `fk_service_contract_service` FOREIGN KEY (`service_contract_link_service_id`) REFERENCES `tbl_service` (`service_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Data exporting was unselected.
 -- Dumping structure for table db_portfolio_management_service.tbl_service_provider
 CREATE TABLE IF NOT EXISTS `tbl_service_provider` (
@@ -135,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `tbl_service_provider` (
 -- Data exporting was unselected.
 -- Dumping structure for table db_portfolio_management_service.tbl_service_request
 CREATE TABLE IF NOT EXISTS `tbl_service_request` (
-  `service_request_id` int(10) unsigned NOT NULL,
+  `service_request_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `service_request_link_customer_id` int(10) unsigned DEFAULT NULL,
   `service_request_link_outlet_id` int(10) unsigned DEFAULT NULL,
   `service_request_link_service_id` int(10) unsigned DEFAULT NULL,

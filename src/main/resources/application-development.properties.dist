@@ -10,3 +10,7 @@ spring.jpa.show-sql: true
 
 # Flyway db migration: add this if you don't want to remove your actual db:
 # flyway.baselineOnMigrate = true
+
+
+static.assets.dir.path = /var/portfolio-management-service
+tmp.dir.path: /var/portfolio-management-service/tmp

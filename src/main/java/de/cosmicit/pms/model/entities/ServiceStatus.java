@@ -18,7 +18,8 @@ public class ServiceStatus {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private int id;
+    @Column(name = "service_status_id", unique = true, nullable = false)
+    private Long id;
 
     @Column(name = "service_status_code")
     private String serviceStatusCode;
@@ -30,6 +31,30 @@ public class ServiceStatus {
     @JsonSerialize(using = CollectionSerializer.class)
     @JsonDeserialize(using = CollectionDeserializer.class)
     private Set<ServiceRequest> serviceRequests = new HashSet<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getServiceStatusCode() {
+        return serviceStatusCode;
+    }
+
+    public void setServiceStatusCode(String serviceStatusCode) {
+        this.serviceStatusCode = serviceStatusCode;
+    }
+
+    public String getServiceStatusDescription() {
+        return serviceStatusDescription;
+    }
+
+    public void setServiceStatusDescription(String serviceStatusDescription) {
+        this.serviceStatusDescription = serviceStatusDescription;
+    }
 
     public void setServiceRequests(Set<ServiceRequest> serviceRequests) {
         if (!this.serviceRequests.isEmpty()) {

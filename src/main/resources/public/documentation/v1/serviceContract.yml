@@ -1,0 +1,222 @@
+---
+serviceContract:
+  get:
+    tags:
+      - Admin API
+    summary: Get array of Service Contract
+    description: |
+      The GET Service Contracts list.
+    responses:
+      200:
+        description: An array of Service Contracts
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/models/serviceContract'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+  post:
+    tags:
+      - Admin API
+    summary: Create a Service Contract
+    description: |
+      Create ServiceContract
+    parameters:
+      - $ref: '#/definitions/parameters/requestCreateBody'
+    responses:
+      201:
+        description: new instance of Service Contract
+        schema:
+          $ref: '#/definitions/models/serviceContract'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      401:
+        $ref: 'definitions.yml#/responses/401'
+serviceContractId:
+  get:
+    tags:
+      - Public API
+      - User API
+    summary: Get single Service Contract
+    description: Get single Service Contract object with identity.
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      200:
+        description: '`Organizer` object in JSON'
+        schema:
+          $ref: '#/definitions/models/serviceContract'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  put:
+    tags:
+      - Admin API
+    summary: Update single Service Contract
+    description: Update single Service Contract
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated Service Contract object
+        schema:
+          $ref: '#/definitions/models/serviceContract'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  patch:
+    tags:
+      - Admin API
+    summary: Partial update single Service Contract
+    description: Partial Update single Service Contract
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated Service Contract object
+        schema:
+          $ref: '#/definitions/models/serviceContract'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  delete:
+    tags:
+      - Admin API
+    summary: Delete Service Contract
+    description: Delete serviceContract object
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      204:
+        $ref: 'definitions.yml#/responses/204'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+
+#########################
+#      local objects    #
+#########################
+definitions:
+#################
+#   parameters  #
+#################
+  parameters:
+    id:
+      name: id
+      in: path
+      description: identity of Service Contract object
+      required: true
+      format: int64
+      type: integer
+    serviceContract:
+      name: serviceContract
+      in: path
+      description: identity of Service Contract object
+      required: true
+      format: int64
+      type: integer
+    requestCreateBody:
+      name: body
+      in: body
+      description: raw request body json for post
+      required: true
+      schema:
+        $ref: '#/definitions/models/serviceContractCreateRequest'
+    requestUpdateBody:
+      name: body
+      in: body
+      description: raw request body json for post
+      required: true
+      schema:
+        $ref: '#/definitions/models/serviceContractUpdateRequest'
+#################
+#     models    #
+#################
+  models:
+    serviceContract:
+      type: object
+      required:
+        - id
+        - startDate
+        - endDate
+        - duration
+        - service
+        - documents
+      properties:
+        id:
+          type: integer
+          format: int64
+        startDate:
+          type: string
+        endDate:
+          type: string
+        duration:
+          type: string
+        service:
+          type: integer
+          format: int64
+        documents:
+          type: array
+          description: Default `[]`
+          items:
+            type: integer
+            format: int64
+      example:
+        id: 1
+        startDate: "2017-12-12T20:00:00Z"
+        endDate: "2017-12-13T20:00:00Z"
+        duration: 1
+        service: 1
+        documents: []
+    serviceContractCreateRequest:
+      type: object
+      properties:
+        startDate:
+          type: string
+        endDate:
+          type: string
+        duration:
+          type: string
+        service:
+          type: integer
+          format: int64
+        documents:
+          type: array
+          description: Default `[]`
+          items:
+            type: integer
+            format: int64
+      example:
+        startDate: "2017-12-12T20:00:00Z"
+        endDate: "2017-12-13T20:00:00Z"
+        duration: 1
+        service: 1
+        documents: []
+    serviceContractUpdateRequest:
+      type: object
+      properties:
+        startDate:
+          type: string
+        endDate:
+          type: string
+        duration:
+          type: string
+        service:
+          type: integer
+          format: int64
+        documents:
+          type: array
+          description: Default `[]`
+          items:
+            type: integer
+            format: int64
+      example:
+        startDate: "2017-12-12T20:00:00Z"
+        endDate: "2017-12-13T20:00:00Z"
+        duration: 1
+        service: 1
+        documents: []

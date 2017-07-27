@@ -17,7 +17,7 @@ import java.util.Set;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
- * This class represents the Service Contract Entity of the Application
+ * This class represents the Service ServiceContract Entity of the Application
  */
 @Entity
 @Table(name = "tbl_service_request")

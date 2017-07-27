@@ -96,7 +96,26 @@ documentId:
         $ref: 'definitions.yml#/responses/204'
       404:
         $ref: 'definitions.yml#/responses/404'
-
+uploadEntity:
+  post:
+    tags:
+      - Admin API
+      - User API
+    summary: Upload documents for verification
+    description: |
+      Upload a document
+    parameters:
+      - $ref: '#/definitions/parameters/documenttype'
+      - $ref: '#/definitions/parameters/requestUploadBody'
+    responses:
+      201:
+        description: document upload for customer
+        schema:
+          $ref: '#/definitions/models/documentUploadRequest'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      401:
+        $ref: 'definitions.yml#/responses/401'
 #########################
 #      local objects    #
 #########################
@@ -133,6 +152,20 @@ definitions:
       required: true
       schema:
         $ref: '#/definitions/models/documentUpdateRequest'
+    documenttype:
+      name: documenttype
+      in: path
+      description: type of document
+      required: true
+      type: string
+    requestUploadBody :
+      name: uploadfile
+      in: formData
+      description: file to be uploaded
+      required: true
+      type: file
+      minLength: 1
+      maxLength: 2000000  # ~2MB
 #################
 #     models    #
 #################
@@ -257,3 +290,22 @@ definitions:
         approvalStatus: approved
         creationDate: "2017-07-24T20:00:00Z"
         approvalDate: "2017-07-26T20:00:00Z"
+    documentUploadRequest:
+      type: object
+      properties:
+        timestamp:
+          type: date-time
+        status:
+          type: string
+        success:
+          type: string
+        filename:
+          type: string
+        path:
+          type: string
+      example:
+        timestamp: 1487933348
+        status: 200
+        success: "OK"
+        filename: "/docs/identity/a753e1eb891986f50bd5e23803e84a8a/8880a6d8.test_passport.jpg"
+        path: "/document/upload"

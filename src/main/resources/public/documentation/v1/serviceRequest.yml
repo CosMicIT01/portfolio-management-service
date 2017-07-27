@@ -1,0 +1,246 @@
+---
+serviceRequest:
+  get:
+    tags:
+      - Admin API
+    summary: Get array of Service Request
+    description: |
+      The GET Service Requests list.
+    responses:
+      200:
+        description: An array of Service Requests
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/models/serviceRequest'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+  post:
+    tags:
+      - Admin API
+    summary: Create a Service Request
+    description: |
+      Create ServiceRequest
+    parameters:
+      - $ref: '#/definitions/parameters/requestCreateBody'
+    responses:
+      201:
+        description: new instance of Service Request
+        schema:
+          $ref: '#/definitions/models/serviceRequest'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      401:
+        $ref: 'definitions.yml#/responses/401'
+serviceRequestId:
+  get:
+    tags:
+      - Public API
+      - User API
+    summary: Get single Service Request
+    description: Get single Service Request object with identity.
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      200:
+        description: '`Organizer` object in JSON'
+        schema:
+          $ref: '#/definitions/models/serviceRequest'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  put:
+    tags:
+      - Admin API
+    summary: Update single Service Request
+    description: Update single Service Request
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated Service Request object
+        schema:
+          $ref: '#/definitions/models/serviceRequest'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  patch:
+    tags:
+      - Admin API
+    summary: Partial update single Service Request
+    description: Partial Update single Service Request
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+      - $ref: '#/definitions/parameters/requestUpdateBody'
+    responses:
+      202:
+        description: Updated Service Request object
+        schema:
+          $ref: '#/definitions/models/serviceRequest'
+      400:
+        $ref: 'definitions.yml#/responses/400'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+  delete:
+    tags:
+      - Admin API
+    summary: Delete Service Request
+    description: Delete serviceRequest object
+    parameters:
+      - $ref: '#/definitions/parameters/id'
+    responses:
+      204:
+        $ref: 'definitions.yml#/responses/204'
+      404:
+        $ref: 'definitions.yml#/responses/404'
+
+#########################
+#      local objects    #
+#########################
+definitions:
+#################
+#   parameters  #
+#################
+  parameters:
+    id:
+      name: id
+      in: path
+      description: identity of Service Request object
+      required: true
+      format: int64
+      type: integer
+    serviceRequest:
+      name: serviceRequest
+      in: path
+      description: identity of Service Request object
+      required: true
+      format: int64
+      type: integer
+    requestCreateBody:
+      name: body
+      in: body
+      description: raw request body json for post
+      required: true
+      schema:
+        $ref: '#/definitions/models/serviceRequestCreateRequest'
+    requestUpdateBody:
+      name: body
+      in: body
+      description: raw request body json for post
+      required: true
+      schema:
+        $ref: '#/definitions/models/serviceRequestUpdateRequest'
+#################
+#     models    #
+#################
+  models:
+    serviceRequest:
+      type: object
+      required:
+        - id
+        - customer
+        - outlet
+        - agent
+        - service
+        - serviceStatus
+        - documents
+      properties:
+        id:
+          type: integer
+          format: int64
+        customer:
+          type: integer
+          format: int64
+        outlet:
+          type: integer
+          format: int64
+        agent:
+          type: integer
+          format: int64
+        service:
+          type: integer
+          format: int64
+        serviceStatus:
+          type: integer
+          format: int64
+        documents:
+          type: array
+          description: Default `[]`
+          items:
+            type: integer
+            format: int64
+      example:
+        id: 1
+        customer: 1
+        outlet: 1
+        agent: 1
+        service: 1
+        serviceStatus: 1
+        documents: []
+    serviceRequestCreateRequest:
+      type: object
+      properties:
+        customer:
+          type: integer
+          format: int64
+        outlet:
+          type: integer
+          format: int64
+        agent:
+          type: integer
+          format: int64
+        service:
+          type: integer
+          format: int64
+        serviceStatus:
+          type: integer
+          format: int64
+        documents:
+          type: array
+          description: Default `[]`
+          items:
+            type: integer
+            format: int64
+      example:
+        id: 1
+        customer: 1
+        outlet: 1
+        agent: 1
+        service: 1
+        serviceStatus: 1
+        documents: []
+    serviceRequestUpdateRequest:
+      type: object
+      properties:
+        customer:
+          type: integer
+          format: int64
+        outlet:
+          type: integer
+          format: int64
+        agent:
+          type: integer
+          format: int64
+        service:
+          type: integer
+          format: int64
+        serviceStatus:
+          type: integer
+          format: int64
+        documents:
+          type: array
+          description: Default `[]`
+          items:
+            type: integer
+            format: int64
+      example:
+        id: 1
+        customer: 1
+        outlet: 1
+        agent: 1
+        service: 1
+        serviceStatus: 1
+        documents: []

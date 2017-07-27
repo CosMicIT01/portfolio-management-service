@@ -45,6 +45,8 @@ paths:
     $ref: 'v1/document.yml#/document'
   /document/{id}:
     $ref: 'v1/document.yml#/documentId'
+  /document/upload/{documenttype}:
+    $ref: 'v1/document.yml#/uploadEntity'
   /subscription:
     $ref: 'v1/subscription.yml#/subscription'
   /subscription/{id}:
@@ -53,6 +55,14 @@ paths:
     $ref: 'v1/promotion.yml#/promotion'
   /promotion/{id}:
     $ref: 'v1/promotion.yml#/promotionId'
+  /servicecontract:
+    $ref: 'v1/serviceContract.yml#/serviceContract'
+  /servicecontract/{id}:
+    $ref: 'v1/serviceContract.yml#/serviceContractId'
+  /servicerequest:
+    $ref: 'v1/serviceRequest.yml#/serviceRequest'
+  /servicerequest/{id}:
+    $ref: 'v1/serviceRequest.yml#/serviceRequestId'
 
 
 
