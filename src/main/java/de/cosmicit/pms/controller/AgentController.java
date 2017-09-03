@@ -3,14 +3,17 @@ package de.cosmicit.pms.controller;
 import de.cosmicit.pms.controller.exception.InvalidParameterException;
 import de.cosmicit.pms.controller.exception.ResourceNotFoundException;
 import de.cosmicit.pms.model.entities.Agent;
+import de.cosmicit.pms.model.entities.Subscription;
 import de.cosmicit.pms.model.repository.AgentRepository;
 import de.cosmicit.pms.model.repository.AgentRepository;
+import de.cosmicit.pms.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/agent")
@@ -18,6 +21,9 @@ public class AgentController extends AbstractRestController<Agent> {
 
     @Autowired
     AgentRepository agentRepository;
+
+    @Autowired
+    AgentService agentService;
 
     @Override
     public Class<Agent> getEntityClass() {
@@ -67,5 +73,14 @@ public class AgentController extends AbstractRestController<Agent> {
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) throws ResourceNotFoundException {
         super.delete(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(path = "/{id}/subscriptions", method = RequestMethod.GET)
+    public Set<Subscription> getSubscriptionsByAgentId(@PathVariable("id") Long id) throws ResourceNotFoundException {
+//        Agent agent = findEntityOrThrowException(id);
+//        return agentService.getSubscriptionsByAgentId(agent);
+        return agentService.getSubscriptionsByAgentIdNumeric(id);
+
     }
 }

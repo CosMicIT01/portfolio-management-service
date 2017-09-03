@@ -19,7 +19,8 @@ public class UTCDateTimeDeserializer extends JsonDeserializer<DateTime> {
     public DateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         JsonToken token = p.getCurrentToken();
         if (token == JsonToken.VALUE_STRING) {
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+//            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
             DateTime dateTime = formatter.withZone(DateTimeZone.UTC)
                     .withChronology(ISOChronology.getInstanceUTC()).parseDateTime(p.getText().trim());
 //            String dateTimeString = p.getText().trim();
